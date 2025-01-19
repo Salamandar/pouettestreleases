@@ -1,0 +1,30 @@
+name: Automatically write releases when tags appear
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "*" ]
+
+
+jobs:
+  pre-release:
+    name: Generate releases
+    runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
+      contents: write
+
+    steps:
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          title: "Development Build"
+
+      - name: Create Release for Tag
+        id: release_tag
+        uses: Akryum/release-tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
