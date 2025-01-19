@@ -15,14 +15,19 @@ jobs:
       contents: write
 
     steps:
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Checkout code
+        uses: actions/checkout@master
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          fetch-depth: 0 # Fetch all tags
 
-      # - name: Create Release for Tag
-      #   id: release_tag
-      #   uses: Akryum/release-tag
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: "marvinpinto/action-automatic-releases@latest"
       #   with:
-      #     tag_name: ${{ github.ref }}
+      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Create Release for Tag
+        id: release_tag
+        uses: Akryum/release-tag@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
