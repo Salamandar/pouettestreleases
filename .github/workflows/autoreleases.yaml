@@ -2,8 +2,7 @@ name: Automatically write releases when tags appear
 
 on:
   push:
-    branches: [ "main" ]
-    tags: [ "*" ]
+    tags: [ "debian/*" ]
 
 
 jobs:
