@@ -24,8 +24,8 @@ jobs:
       #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Patch tag name
-        id: patch_tag_name
-        run: echo ${{ github.ref }} | sed 's|debian/||'
+        id: patch-tag-name
+        run: echo "version=$(echo ${{ github.ref }} | sed 's|debian/||')" >> $GITHUB_OUTPUT
 
       - name: Create Release for Tag
         id: release_tag
@@ -33,5 +33,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          release_name: YunoHost ${{ steps.patch_tag_name.outputs.value }}"
+          release_name: YunoHost ${{ steps.patch-tag-name.outputs.version }}
           tag_name: ${{ github.ref }}
