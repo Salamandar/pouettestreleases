@@ -23,10 +23,15 @@ jobs:
       #   with:
       #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
 
+      - name: Patch tag name
+        id: patch_tag_name
+        run: echo ${{ github.ref }} | sed 's|debian/||'
+
       - name: Create Release for Tag
         id: release_tag
         uses: Akryum/release-tag@v4.0.7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          release_name: YunoHost ${{ steps.patch_tag_name.outputs.value }}"
           tag_name: ${{ github.ref }}
