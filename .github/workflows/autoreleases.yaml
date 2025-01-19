@@ -21,10 +21,10 @@ jobs:
           automatic_release_tag: "latest"
           title: "Development Build"
 
-      - name: Create Release for Tag
-        id: release_tag
-        uses: Akryum/release-tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
+      # - name: Create Release for Tag
+      #   id: release_tag
+      #   uses: Akryum/release-tag
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
